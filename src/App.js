@@ -12,11 +12,21 @@ import Login from './components/Login/Login';
 import RideNow from './components/RideNow/RideNow';
 import NoMatch from './components/NoMatch/NoMatch';
 import Navigation from './components/Home/Navigation';
+import { createContext, useState } from 'react';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+
+
+export const UserContext = createContext();
 
 function App() {
-  return (
-    <div className="App">
 
+  const [loggedInUser , setLoggedInUser] = useState({});
+
+  return (
+
+    <UserContext.Provider value={[loggedInUser , setLoggedInUser]} >
+        <p>Name :{loggedInUser.name}</p>
+      <div className="App">
       <Router>
 
         <h1> UBER RIDERS</h1>
@@ -32,9 +42,9 @@ function App() {
               <Login/>
             </Route>
 
-            <Route path="/rideNow/:id">
+            <PrivateRoute path="/rideNow/:id">
               <RideNow/>
-            </Route>
+            </PrivateRoute>
             
             <Route exact path="/">
                 <Home />
@@ -47,10 +57,12 @@ function App() {
         </Switch>
         
       </Router>
+      </div>
+      </UserContext.Provider>
 
 
      
-    </div>
+    
   );
 }
 

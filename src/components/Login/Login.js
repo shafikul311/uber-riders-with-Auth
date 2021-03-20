@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState} from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "../../config.firebase";
@@ -9,6 +9,9 @@ import {
 
 } from "@fortawesome/free-brands-svg-icons"
 import './Login.css'
+import { UserContext } from "../../App";
+import { useHistory, useLocation } from "react-router";
+
 
 
 if (firebase.apps.length === 0) {
@@ -16,6 +19,12 @@ if (firebase.apps.length === 0) {
 }
 
 const Login = () => {
+
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/" } };
+
+  const [loggedInUser ,setLoggedInUser] = useContext(UserContext);
   const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState({
     isSignIn: false,
@@ -23,10 +32,9 @@ const Login = () => {
     email: "",
     photo: "",
   });
-
-  const provider = new firebase.auth.GoogleAuthProvider();
-  const fbProvider = new firebase.auth.FacebookAuthProvider();
+ 
   const handleGoogleSignIn = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
@@ -38,8 +46,11 @@ const Login = () => {
           email: email,
           photo: photoURL,
         };
+
+        setLoggedInUser(isSignedIn)
         setUser(isSignedIn);
-        console.log(displayName, email, photoURL);
+        history.replace(from);
+        // console.log(displayName, email, photoURL);
       })
       .catch((err) => {
         console.log(err);
@@ -48,6 +59,7 @@ const Login = () => {
   };
 
   const handlefbSignIn = () => {
+    const fbProvider = new firebase.auth.FacebookAuthProvider();
     firebase
       .auth()
       .signInWithPopup(fbProvider)
@@ -59,7 +71,9 @@ const Login = () => {
           email: email,
           photo: photoURL,
         };
+        setLoggedInUser(isSignedIn)
         setUser(isSignedIn);
+        history.replace(from);
         console.log(displayName, email, photoURL);
       })
       .catch((error) => {
@@ -177,14 +191,10 @@ const Login = () => {
   };
   return (
     <div>
-     
-
 
       {user.isSignIn && (
         <div>
-          <p>welcome {user.name}</p>
-          <p>your Email: {user.email}</p>
-          <img src={user.photo} alt="name" />
+         <h1 style={{color:'green'}}>User Created Successfully</h1>
         </div>
       )}
       {/* login From creation */}
