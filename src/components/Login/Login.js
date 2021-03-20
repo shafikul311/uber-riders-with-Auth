@@ -198,14 +198,15 @@ const Login = () => {
         </div>
       )}
       {/* login From creation */}
-
-      <h1>Creat An Account </h1>
-     
+        { 
+        (newUser ? <h1>Creat An Account </h1>:<h1>Login Account </h1>)
+        
+        }
 
       <form onSubmit={handleSubmit} className="form-container">
         {newUser && (
           <input
-          class="form-control" 
+          className="form-control" 
             type="text"
             name="name"
             onBlur={handleBlur}
@@ -216,7 +217,7 @@ const Login = () => {
 
         <br />
         <input
-        class="form-control" 
+        className="form-control" 
           type="email"
           onBlur={handleBlur}
           name="email"
@@ -226,7 +227,7 @@ const Login = () => {
         />
         <br />
         <input
-        class="form-control" 
+        className="form-control" 
           type="password"
           onBlur={handleBlur}
           placeholder="Password"
@@ -245,7 +246,7 @@ const Login = () => {
         name="newUser"
         id=""
       />
-      <label htmlFor="newUser"> New User for Sign up</label>
+      <label htmlFor="newUser" style={{color:'blue'}}> New User for Sign up ?</label>
 
       {user.success && (
         <p style={{ color: "green", fontSize: "20px" }}>

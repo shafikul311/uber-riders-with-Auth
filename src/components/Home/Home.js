@@ -16,14 +16,11 @@ const Home = () => {
 
   return (
     <div>
-      <div>
-      {/* <Navigation></Navigation> */}
-      </div>
+      <div>{/* <Navigation></Navigation> */}</div>
 
-      <br/>
-      <br/>
+      <br />
+      <br />
       <div className="data-flex">
-      
         {carsData.map((car) => (
           <CarList key={car.id} car={car}></CarList>
         ))}
