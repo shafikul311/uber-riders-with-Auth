@@ -1,0 +1,10 @@
+.data-flex {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  justify-content: center;
+  margin-left: 5%;
+  padding: 7%;
+  text-align: center;
+}
