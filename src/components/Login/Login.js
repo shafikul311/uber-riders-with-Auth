@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from '../../config.firebase';
+import firebaseConfig from "../../config.firebase";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebook } from '@fortawesome/free-solid-svg-icons'
+import {
+  faFacebookF, faGoogle,
+
+} from "@fortawesome/free-brands-svg-icons"
+import './Login.css'
+
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
 
-
-
 const Login = () => {
-
   const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState({
     isSignIn: false,
@@ -58,15 +63,12 @@ const Login = () => {
         console.log(displayName, email, photoURL);
       })
       .catch((error) => {
-        
         var errorCode = error.code;
         var errorMessage = error.message;
-       
-        var email = error.email;
-      
-        console.log(errorCode, errorMessage, email);
 
-    
+        var email = error.email;
+
+        console.log(errorCode, errorMessage, email);
       });
   };
 
@@ -172,18 +174,11 @@ const Login = () => {
         // An error happened.
         console.log(error);
       });
-    };
+  };
   return (
     <div>
+     
 
-{user.isSignIn ? (
-        <button onClick={handleGoogleSignOut}>sign out</button>
-      ) : (
-        <button onClick={handleGoogleSignIn}>sign in</button>
-      )}
-
-      <br />
-      <button onClick={handlefbSignIn}>Sign in using Facebook</button>
 
       {user.isSignIn && (
         <div>
@@ -194,32 +189,24 @@ const Login = () => {
       )}
       {/* login From creation */}
 
-      <h1>Our own Authentication </h1>
-      <input
-        type="checkbox"
-        onChange={() => setNewUser(!newUser)}
-        name="newUser"
-        id=""
-      />
-      <label htmlFor="newUser"> New User for Sign up</label>
+      <h1>Creat An Account </h1>
+     
 
-      {/* <p>Email :{user.email}</p>
-      <p>Password:{user.password}</p>
-      <p>name : {user.name}</p> */}
-
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-container">
         {newUser && (
           <input
+          class="form-control" 
             type="text"
             name="name"
             onBlur={handleBlur}
-            placeholder="your name"
+            placeholder="Your name"
             id=""
           />
         )}
 
         <br />
         <input
+        class="form-control" 
           type="email"
           onBlur={handleBlur}
           name="email"
@@ -229,29 +216,46 @@ const Login = () => {
         />
         <br />
         <input
+        class="form-control" 
           type="password"
           onBlur={handleBlur}
-          placeholder="password"
+          placeholder="Password"
           required
           name="password"
           id=""
         />
-        <br />
-        <br />
+        <p style={{ color: "red"}}>{user.error}</p>
+    
         <input type="submit" value={newUser ? "Sign Up " : "Sign In"} />
       </form>
 
-      <p style={{ color: "red", fontSize: "40px" }}>{user.error}</p>
+      <input
+        type="checkbox"
+        onChange={() => setNewUser(!newUser)}
+        name="newUser"
+        id=""
+      />
+      <label htmlFor="newUser"> New User for Sign up</label>
 
       {user.success && (
-        <p style={{ color: "green", fontSize: "40px" }}>
-          User {newUser ? "created" : "Logged in"} successfully
+        <p style={{ color: "green", fontSize: "20px" }}>
+          User {newUser ? "created" : "Logged in"} Successfully
         </p>
       )}
-      
+
+            <br/>
+      {/* G and F sign  */}
+
+      {user.isSignIn ? (
+        <button className="btn btn-primary" type="button"   onClick={handleGoogleSignOut}>  <FontAwesomeIcon className="icon-g"  icon={faGoogle} /> Google sign out</button>
+      ) : (
+        <button className="btn btn-primary" type="button"  onClick={handleGoogleSignIn}>  <FontAwesomeIcon className="icon-g"  icon={faGoogle} /> Google sign in</button>
+      )}
+      <br/>
+      <br />
+      <button className="btn btn-primary" type="button" onClick={handlefbSignIn}> <FontAwesomeIcon className="icon-f"  icon={faFacebookF} /> Sign in Facebook</button>
     </div>
   );
 };
-
 
 export default Login;
