@@ -139,6 +139,7 @@ const Login = () => {
           // console.log(res)
           setUser(newUserInfo);
           updateUsrInfo(user.name);
+          
         })
         .catch((error) => {
           const newUserInfo = { ...user };
@@ -159,6 +160,8 @@ const Login = () => {
 
           // console.log(res)
           setUser(newUserInfo);
+          
+          history.replace(from);
           console.log("sign in user info ", res.user);
         })
         .catch((error) => {
@@ -166,6 +169,7 @@ const Login = () => {
           newUserInfo.error = error.message;
           newUserInfo.success = false;
           console.log(error);
+         
           setUser(newUserInfo);
         });
     }
@@ -199,7 +203,7 @@ const Login = () => {
       )}
       {/* login From creation */}
         { 
-        (newUser ? <h1>Creat An Account </h1>:<h1>Login Account </h1>)
+        (newUser ? <h1>Creat An Account </h1>:<h1>Login </h1>)
         
         }
 

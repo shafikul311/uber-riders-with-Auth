@@ -1,14 +1,16 @@
 import React from "react";
 import { CardGroup } from "react-bootstrap";
-import { images } from "../images/Map.png";
+
 import Card from "react-bootstrap/Card";
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/Form";
-import { Button } from "bootstrap";
+
 import { useParams } from "react-router";
 
 const RideNow = () => {
   const { id } = useParams();
+
+  // const handleButton = (e)=>{
+  //   e.preventDefault();
+  // }
   return (
     <div>
       <CardGroup className="m-3">
@@ -16,12 +18,18 @@ const RideNow = () => {
           <h3>Please Search Your Destination</h3>
 
           <form>
+                
+                <h6>Date</h6>
                 <input type="date" />
+                <br/>
+                
+                <h6>Time</h6>
+                <input type="time" />
 
-                <h5>pick from</h5>
+                <h6>pick from</h6>
                 <input type="text" />
 
-                <h5>pick To</h5>
+                <h6>pick To</h6>
                 <input type="text" />
                 <br/>
                 <br />
@@ -37,6 +45,7 @@ const RideNow = () => {
               style={{ width: "800", height: "600", border: 0 }}
               allowfullscreen="yes"
               loading="lazy"
+              title="map"
             ></iframe>
           </p>
         </Card>
