@@ -8,7 +8,7 @@ import { useParams } from "react-router";
 
 const PriceCart = () => {
 
-  // const { imgUrl} = useParams();
+  // const { id} = useParams();
   // console.log(imgUrl)
 
   return (

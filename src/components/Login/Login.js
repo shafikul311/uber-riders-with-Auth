@@ -1,30 +1,24 @@
-import React, { useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "../../config.firebase";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook } from '@fortawesome/free-solid-svg-icons'
-import {
-  faFacebookF, faGoogle,
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-} from "@fortawesome/free-brands-svg-icons"
-import './Login.css'
+import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import "./Login.css";
 import { UserContext } from "../../App";
 import { useHistory, useLocation } from "react-router";
-
-
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
 
 const Login = () => {
-
   const history = useHistory();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
 
-  const [loggedInUser ,setLoggedInUser] = useContext(UserContext);
+  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
   const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState({
     isSignIn: false,
@@ -32,7 +26,7 @@ const Login = () => {
     email: "",
     photo: "",
   });
- 
+
   const handleGoogleSignIn = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
@@ -47,7 +41,7 @@ const Login = () => {
           photo: photoURL,
         };
 
-        setLoggedInUser(isSignedIn)
+        setLoggedInUser(isSignedIn);
         setUser(isSignedIn);
         history.replace(from);
         // console.log(displayName, email, photoURL);
@@ -71,7 +65,7 @@ const Login = () => {
           email: email,
           photo: photoURL,
         };
-        setLoggedInUser(isSignedIn)
+        setLoggedInUser(isSignedIn);
         setUser(isSignedIn);
         history.replace(from);
         console.log(displayName, email, photoURL);
@@ -137,9 +131,9 @@ const Login = () => {
           newUserInfo.success = true;
 
           // console.log(res)
+         
           setUser(newUserInfo);
           updateUsrInfo(user.name);
-          
         })
         .catch((error) => {
           const newUserInfo = { ...user };
@@ -169,7 +163,7 @@ const Login = () => {
           newUserInfo.error = error.message;
           newUserInfo.success = false;
           console.log(error);
-         
+
           setUser(newUserInfo);
         });
     }
@@ -194,23 +188,19 @@ const Login = () => {
       });
   };
   return (
-    <div classname="login">
-
+    <div className="login">
       {user.isSignIn && (
         <div>
-         <h1 style={{color:'green'}}>User Created Successfully</h1>
+          <h1 style={{ color: "green" }}>User Created Successfully</h1>
         </div>
       )}
       {/* login From creation */}
-        { 
-        (newUser ? <h1>Creat An Account </h1>:<h1>Login </h1>)
-        
-        }
+      {newUser ? <h1>Creat An Account </h1> : <h1>Login </h1>}
 
       <form onSubmit={handleSubmit} className="form-container">
         {newUser && (
           <input
-          className="form-control" 
+            className="form-control"
             type="text"
             name="name"
             onBlur={handleBlur}
@@ -221,7 +211,7 @@ const Login = () => {
 
         <br />
         <input
-        className="form-control" 
+          className="form-control"
           type="email"
           onBlur={handleBlur}
           name="email"
@@ -231,7 +221,7 @@ const Login = () => {
         />
         <br />
         <input
-        className="form-control" 
+          className="form-control"
           type="password"
           onBlur={handleBlur}
           placeholder="Password"
@@ -239,8 +229,8 @@ const Login = () => {
           name="password"
           id=""
         />
-        <p style={{ color: "red"}}>{user.error}</p>
-    
+        <p style={{ color: "red" }}>{user.error}</p>
+
         <input type="submit" value={newUser ? "Sign Up " : "Sign In"} />
       </form>
 
@@ -250,7 +240,10 @@ const Login = () => {
         name="newUser"
         id=""
       />
-      <label htmlFor="newUser" style={{color:'blue'}}> New User for Sign up ?</label>
+      <label htmlFor="newUser" style={{ color: "blue" }}>
+        {" "}
+        New User for Sign up ?
+      </label>
 
       {user.success && (
         <p style={{ color: "green", fontSize: "20px" }}>
@@ -258,17 +251,39 @@ const Login = () => {
         </p>
       )}
 
-            <br/>
+      <br />
       {/* G and F sign  */}
 
       {user.isSignIn ? (
-        <button className="btn btn-primary" type="button"   onClick={handleGoogleSignOut}>  <FontAwesomeIcon className="icon-g"  icon={faGoogle} /> Google sign out</button>
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={handleGoogleSignOut}
+        >
+          {" "}
+          <FontAwesomeIcon className="icon-g" icon={faGoogle} /> Google sign out
+        </button>
       ) : (
-        <button className="btn btn-primary" type="button"  onClick={handleGoogleSignIn}>  <FontAwesomeIcon className="icon-g"  icon={faGoogle} /> Google sign in</button>
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={handleGoogleSignIn}
+        >
+          {" "}
+          <FontAwesomeIcon className="icon-g" icon={faGoogle} /> Google sign in
+        </button>
       )}
-      <br/>
       <br />
-      <button className="btn btn-primary" type="button" onClick={handlefbSignIn}> <FontAwesomeIcon className="icon-f"  icon={faFacebookF} /> Sign in Facebook</button>
+      <br />
+      <button
+        className="btn btn-primary"
+        type="button"
+        onClick={handlefbSignIn}
+      >
+        {" "}
+        <FontAwesomeIcon className="icon-f" icon={faFacebookF} /> Sign in
+        Facebook
+      </button>
     </div>
   );
 };

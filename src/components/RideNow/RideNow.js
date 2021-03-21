@@ -1,4 +1,4 @@
-import React from "react";
+// import React, { useState } from "react";
 import { CardGroup } from "react-bootstrap";
 
 import Card from "react-bootstrap/Card";
@@ -7,36 +7,46 @@ import { useParams } from "react-router";
 import PriceCart from "../PriceCart/PriceCart";
 
 const RideNow = () => {
+
+  // const [show , setShow]= useState(false)
   
 
-  // const handleButton = (e)=>{
-  //   e.preventDefault();
-  // }
+  const handleButton = (e)=>{
+
+    e.preventDefault();
+  }
+
+ 
   return (
     <div>
       <CardGroup className="m-3">
         <Card className="m-2 p-5 justify-content-center">
-          <h3>Please Search Your Destination</h3>
+       
+            
+            <form className="p-2">
+              <h3>Please Search Your Destination</h3>
+  
+                  <h6>pick from</h6>
+                  <input className="form-control" type="text" />
+  
+                  <h6>pick To</h6>
+                  <input className="form-control" type="text" />
+  
+                  <h6>Date</h6>
+                  <input className="form-control" type="date" />
+                  <br/>
+                  
+                  <h6>Time</h6>
+                  <input className="form-control" type="time" />
+  
+                  <br/>
+                  <br />
+                  <button onClick={handleButton} className ="btn btn-warning">Search</button>
+            </form>
+            
+        
 
-          <form className="p-2">
-
-                <h6>pick from</h6>
-                <input className="form-control" type="text" />
-
-                <h6>pick To</h6>
-                <input className="form-control" type="text" />
-
-                <h6>Date</h6>
-                <input className="form-control" type="date" />
-                <br/>
-                
-                <h6>Time</h6>
-                <input className="form-control" type="time" />
-
-                <br/>
-                <br />
-                <button className ="btn btn-warning">Search</button>
-          </form>
+         
         </Card>
 
         <Card className="p-4">
@@ -53,8 +63,8 @@ const RideNow = () => {
         </Card>
       </CardGroup>
 
+      
       <PriceCart></PriceCart>
-   
     </div>
   );
 };
