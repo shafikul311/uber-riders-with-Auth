@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './carList.css'
 
 const CarList = ({car}) => {
-    const {id , title, imgUrl} = car
+    // const {id} = useParams();
+    const {id ,title, imgUrl} = car
 
 
     return (

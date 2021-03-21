@@ -50,9 +50,9 @@ function App() {
                 <Home />
               </Route>
 
-            <Route path="*">
+            {/* <Route path="*">
                 <NoMatch />
-              </Route>
+              </Route> */}
 
         </Switch>
         

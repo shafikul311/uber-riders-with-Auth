@@ -2,7 +2,7 @@
   text-align: center;
   background-image: url(./Bg.png);
   background-image: cover;
-  height: 100vh;
+  /* height: 100vh; */
   background-size: 100%;
 }
 
